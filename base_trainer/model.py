@@ -82,11 +82,7 @@ def weight_init(m):
         nn.init.constant_(m.weight, 1)
         nn.init.constant_(m.bias, 0)
 
-class DeepCNN(nn.Module):
-    def __init__(self, feature_size):
-        super().__init__()
 
-        self.CNN = nn.Conv2d(feature_size, 20)
 
 
 class MLP(nn.Module):
@@ -94,14 +90,14 @@ class MLP(nn.Module):
     def __init__(self, feature_size):
         super().__init__()
 
-        self.linear1 = nn.Linear(feature_size, 32)
-        self.relu1 = nn.ReLU()
+        self.linear1 = nn.Linear(feature_size, 6)
+        self.relu1 = nn.LeakyReLU()
         self.dropout1 = nn.Dropout(0.3)
-        self.linear2 = nn.Linear(32, 64)
-        self.relu2 = nn.ReLU()
+        self.linear2 = nn.Linear(6, 24)
+        self.relu2 = nn.LeakyReLU()
         self.dropout2 = nn.Dropout(0.3)
-        self.linear3 = nn.Linear(64, 128)
-        self.relu3 = nn.ReLU()
+        self.linear3 = nn.Linear(24, 24)
+        self.relu3 = nn.LeakyReLU()
         self.dropout3 = nn.Dropout(0.3)
 
     def forward(self, x):
@@ -132,7 +128,8 @@ class Net(nn.Module):
 
         self.avg_pooling = nn.AdaptiveAvgPool2d(1)
         self.dropout = nn.Dropout(0.5)
-        self.fc = nn.Linear(1024, num_classes, bias=True)
+        self.fc = nn.Linear(512, num_classes, bias=True)
+        self.add_sleep_feature = MLP(1)
         weight_init(self.fc)
 
     def forward(self, x):
@@ -141,7 +138,6 @@ class Net(nn.Module):
         bs = x.size(0)
         x = self.preprocess(x)
         x = self.model.forward_features(x)
-
         fm = self.avg_pooling(x)
         fm = fm.view(bs, -1)
         feature = self.dropout(fm)

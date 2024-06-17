@@ -23,14 +23,14 @@ def main():
             folds.loc[val_index, 'fold'] = int(n)
         return folds
 
-    data = get_fold(n_fold)
+    data = pd.read_csv(cfg.DATA.data_file)
 
     for fold in range(n_fold):
         ###build dataset
 
-        train_ind = data[data['train_val'] == 0].index.values
+        train_ind = data[data['fold'] !=fold].index.values
         train_data = data.iloc[train_ind].copy()
-        val_ind = data[data['train_val'] == 1].index.values
+        val_ind = data[data['fold'] == fold].index.values
         val_data = data.iloc[val_ind].copy()
 
         ###build trainer

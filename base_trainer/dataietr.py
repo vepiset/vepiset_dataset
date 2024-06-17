@@ -1,7 +1,7 @@
 import random
 import copy
 import numpy as np
-
+import os
 from utils.logger import logger
 
 
@@ -18,10 +18,6 @@ class AlaskaDataIter():
         self.df = df
         logger.info(' contains%d samples  %d pos' % (len(self.df), np.sum(self.df['target'] == 1)))
         logger.info(' contains%d samples' % len(self.df))
-
-        if training_flag:
-            # sample there
-            self.df = self.filter(self.df)
 
         logger.info(' After filter contains%d samples  %d pos' % (len(self.df), np.sum(self.df['target'] == 1)))
         logger.info(' After filter contains%d samples' % len(self.df))
@@ -121,9 +117,10 @@ class AlaskaDataIter():
         """Data augmentation function."""
         fname = dp['file_path']
         label = dp['target']
-
         try:
+            fname = fname.strip()
             waves = np.load(fname)
+
 
         except Exception as e:
             print("=====fname====exception:", fname, e)
@@ -133,7 +130,7 @@ class AlaskaDataIter():
 
         waves = self.norm(waves)
 
-        avg_lead, union_polor_lead, bipolor_lead = self.lead(waves)
+        avg_lead = self.lead(waves)
 
         if is_training and random.uniform(0, 1) < 1.:
             waves[:19, :] = self.xshuffle(waves[:19, :])

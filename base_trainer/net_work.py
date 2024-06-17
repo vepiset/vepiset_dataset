@@ -75,11 +75,7 @@ class Train(object):
         self.save_dir = cfg.MODEL.model_path
         self.fp16 = cfg.TRAIN.mix_precision
 
-        #self.model = Net().to(self.device)
         channel_num = 0
-        if self.is_base == 0:
-            print("=====add video ======")
-            channel_num = 128
         self.model = Net(add_channel=channel_num).to(self.device)
         self.load_weight()
 
@@ -99,7 +95,7 @@ class Train(object):
                                                                    output_device=local_rank,
                                                                    find_unused_parameters=True)
         else:
-            self.model = nn.DataParallel(self.model)
+            self.model = torch.nn.DataParallel(self.model)
 
         self.iter_num = 0
 
@@ -147,6 +143,7 @@ class Train(object):
                 label = label.to(self.device).float()
 
 
+
                 batch_size = data.shape[0]
 
                 with torch.cuda.amp.autocast(enabled=self.fp16):
@@ -159,7 +156,7 @@ class Train(object):
 
                 if ((self.iter_num + 1) % self.accumulation_step) == 0:
                     self.scaler.unscale_(self.optimizer)
-                    nn.utils.clip_grad_norm_(self.model.parameters(), max_norm=self.gradient_clip, norm_type=2)
+                    torch.nn.utils.clip_grad_norm_(self.model.parameters(), max_norm=self.gradient_clip, norm_type=2)
                     self.scaler.step(self.optimizer)
                     self.scaler.update()
                     self.optimizer.zero_grad()
