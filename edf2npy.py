@@ -254,18 +254,12 @@ def main():
     edf_files_path = args.edf_files_path
     numpy_files_path = args.numpy_files_path
     edfconverter = EDFCONVERTER(choice_type='spike')
-    edf_files_path = r'D:\opends\opensource-dataset\EDF'
-    numpy_files_path = r'D:\opends\opensource-dataset-numpy'
     edfconverter.get_data(edf_files_path,numpy_files_path)
 
 
 if __name__ == '__main__':
-    # main()
-    ### test_edf
-    edf_fn = r'D:\opends\0506_edf\DA00100A.edf'
-    edf_reader = EDFReader(edf_fn, choice_type='spike')
-    print(edf_reader.get_annotation())
-    print(edf_reader.raw.info)
+    main()
+
 
 
 
