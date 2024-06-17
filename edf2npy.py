@@ -180,7 +180,7 @@ class EDFCONVERTER():
 
 
     def process_one(self,edf_fn, save_dir):
-        eeg_id = edf_fn.rsplit('\\', 1)[1].rsplit('.', 1)[0]
+        eeg_id = edf_fn.rsplit('/', 1)[1].rsplit('.', 1)[0]
         try:
             edf_reader = EDFReader(edf_fn, self.choice_type)
         except:
@@ -196,8 +196,6 @@ class EDFCONVERTER():
         message_dic["eeg_id"] = eeg_id
         slices = edf_reader.slidding()
         times = edf_reader.start_and_end
-        print(edf_reader.get_annotation())
-        print(len(edf_reader.get_annotation()))
 
         for item in tqdm(slices):
             is_positive_sample_slice = self.within_time_frame(item, times)
@@ -210,11 +208,6 @@ class EDFCONVERTER():
             time = item['start_time']
             waves = item['data']
             position = item['start_point']
-            # if position == 124000 or position == 242000 or position == 268000 or position == 288000:
-            #     print("is_positive_sample_slice",is_positive_sample_slice)
-            #     print("self.is_abnormal_label(tag_text)",self.is_abnormal_label(tag_text))
-            #     print("tag_text",tag_text)
-            #     print("item",item)
 
 
             for fix_label in self.fix_label:
