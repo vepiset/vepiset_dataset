@@ -62,7 +62,6 @@ pip install -r requirements.txt
 
 - `config.MODEL.model_path`
 
-- `config.num_classes`  
 
 **The setting of these two parameters is important**
 
