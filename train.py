@@ -1,4 +1,3 @@
-import cv2
 import numpy as np
 import pandas as pd
 
@@ -34,30 +33,6 @@ def main():
         val_data = data.iloc[val_ind].copy()
 
         ###build trainer
-
-        if cfg.TRAIN.vis:
-            print('show it, here')
-
-            trainds = AlaskaDataIter(train_data, training_flag=True, shuffle=False)
-            train_ds = DataLoader(trainds,
-                                  cfg.TRAIN.batch_size,
-                                  num_workers=cfg.TRAIN.process_num,
-                                  shuffle=True)
-
-            for images, labels in train_ds:
-
-                for i in range(images.shape[0]):
-                    example_image = np.array(images[i], dtype=np.uint8)
-                    example_image = np.transpose(example_image, [1, 2, 0])
-                    example_label = np.array(labels[i])
-
-                    print(example_label)
-                    print(example_label.shape)
-                    cv2.imshow('example', example_image)
-
-                    cv2.waitKey(0)
-
-
         trainer = Train(train_df=train_data,
                         val_df=val_data,
                         fold=fold)
