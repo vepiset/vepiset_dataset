@@ -125,6 +125,7 @@ def eval(weight, test_path):
             labels_list.append(labels)
             batch_size = data.shape[0]
             predictions = model(data)
+            intermediate_output = model.intermediate_layer(data)
             y_pre_list.append(predictions)
             rocauc_score.update(labels, predictions)
 

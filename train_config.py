@@ -6,14 +6,14 @@ config = edict()
 
 config.TRAIN = edict()
 
-config.TRAIN.process_num = 4
+config.TRAIN.process_num = 1
 
-config.TRAIN.batch_size = 512
+config.TRAIN.batch_size = 128
 config.TRAIN.validatiojn_batch_size = config.TRAIN.batch_size
-config.TRAIN.accumulation_batch_size = 512
+config.TRAIN.accumulation_batch_size = 128
 config.TRAIN.log_interval = 10
 config.TRAIN.test_interval = 1
-config.TRAIN.epoch = 15
+config.TRAIN.epoch = 30
 
 config.TRAIN.init_lr = 0.0005
 config.TRAIN.lr_scheduler = 'cos'
@@ -40,23 +40,19 @@ else:
 config.MODEL = edict()
 
 
-config.MODEL.model_path = './models/different_region/'
+config.MODEL.model_path = './models/test_mat/'
 
 config.DATA = edict()
 
-config.DATA.data_file = 'opensource-dataset-spike-5-different_region-5cv.csv'
+config.DATA.data_file = 'test_mat.csv'
 
-config.DATA.data_root_path = '.'
+config.DATA.data_root_path = 'utils'
 
-config.MODEL.early_stop = 15
+config.MODEL.early_stop = 30
 
 config.MODEL.pretrained_model = None
 
-config.num_classes = 5
-
 config.SEED = 10086
-
-config.k_fold = 5
 
 seed_everything(config.SEED)
 config.is_base = 1
