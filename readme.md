@@ -70,7 +70,7 @@ pip install -r requirements.txt
 ## Spike Data Set：
 
 
-| Category   | IED    | non-IDE |
+| Category   | IED    | non-IED |
 | ---------- | ------ | ------- |
 | Quantity   | 2516   | 22933   |
 | Percentage | 9.886% | 90.114% |
@@ -78,7 +78,7 @@ pip install -r requirements.txt
 ## 5 Cross Valid Result on Spike Data Set
 
 
-|         | non-IDE | IDE  | PR    | RE    | F1    |
+|         | non-IED | IED  | PR    | RE    | F1    |
 | ------- | ------- | ---- | ----- | ----- | ----- |
-| non-IDE | 22549   | 384  | 0.976 | 0.983 | 0.980 |
-| IDE     | 552     | 1964 | 0.836 | 0.781 | 0.808 |
+| non-IED | 22549   | 384  | 0.976 | 0.983 | 0.980 |
+| IED     | 552     | 1964 | 0.836 | 0.781 | 0.808 |

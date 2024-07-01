@@ -246,7 +246,7 @@ class Train(object):
 
             # save model
             if not os.access(cfg.MODEL.model_path, os.F_OK):
-                os.mkdir(cfg.MODEL.model_path)
+                os.mkdirs(cfg.MODEL.model_path)
 
             #### save the model every end of epoch
             current_model_saved_name = self.save_dir + '/fold%d_epoch_%d_val_rocauc_%.6f_loss_%.6f.pth' % (self.fold,

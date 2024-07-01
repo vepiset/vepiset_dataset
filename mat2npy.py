@@ -184,7 +184,7 @@ class MATCONVERTER():
 
 
     def process_one(self,mat_fn, save_dir):
-        eeg_id = mat_fn.rsplit('\\', 1)[1].rsplit('.', 1)[0]
+        eeg_id = mat_fn.rsplit('/', 1)[1].rsplit('.', 1)[0]
         try:
             mat_reader = MATReader(mat_fn, self.choice_type)
         except:
