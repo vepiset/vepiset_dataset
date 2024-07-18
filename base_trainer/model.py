@@ -96,7 +96,6 @@ class Net(nn.Module):
         self.avg_pooling = nn.AdaptiveAvgPool2d(1)
         self.dropout = nn.Dropout(0.5)
         self.fc = nn.Linear(512, num_classes, bias=True)
-        self.add_sleep_feature = MLP(1)
         weight_init(self.fc)
 
     def forward(self, x):
