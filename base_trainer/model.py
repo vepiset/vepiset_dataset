@@ -83,39 +83,6 @@ def weight_init(m):
         nn.init.constant_(m.bias, 0)
 
 
-
-
-class MLP(nn.Module):
-
-    def __init__(self, feature_size):
-        super().__init__()
-
-        self.linear1 = nn.Linear(feature_size, 6)
-        self.relu1 = nn.LeakyReLU()
-        self.dropout1 = nn.Dropout(0.3)
-        self.linear2 = nn.Linear(6, 24)
-        self.relu2 = nn.LeakyReLU()
-        self.dropout2 = nn.Dropout(0.3)
-        self.linear3 = nn.Linear(24, 24)
-        self.relu3 = nn.LeakyReLU()
-        self.dropout3 = nn.Dropout(0.3)
-
-    def forward(self, x):
-        x = self.linear1(x)
-        x = self.relu1(x)
-        x = self.dropout1(x)
-
-        x = self.linear2(x)
-        x = self.relu2(x)
-        x = self.dropout2(x)
-
-        x = self.linear3(x)
-        x = self.relu3(x)
-        x = self.dropout3(x)
-
-        return x
-
-
 class Net(nn.Module):
     def __init__(self, num_classes=1, add_channel=0):
         super().__init__()
