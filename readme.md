@@ -2,14 +2,16 @@
 
 We are delighted to introduce our open-source dataset, the Epileptic Spike Dataset, sourced from the Epilepsy Center of Peking Union Medical College Hospital (PUMCH). These invaluable resources are now available for research purposes, aimed at enhancing knowledge and fostering innovation in the realm of electroencephalography.
 
-We have released 84 MAT files, including 29 channels, which include 19 channels according to 10-20 international standards, 4 ear pole channels, 2 electrocardiogram channels, and 4 electromyography channels.
+
+
+We have released 84 MAT files, which include 29 electrodes: 19 electrodes are based on the 10-20 international standard, 4 are auricular electrodes, 2 are electrocardiogram electrodes, and 4 are electromyogram electrodes. Note: During data preprocessing, we subtract EKG2 from EKG1 to create one electrocardiogram channel, and we subtract EMG2 from EMG1 and EMG4 from EMG3 to create two electromyogram channels. These data processing steps can be found in the base_trainer/dataietr.py file.
 
 ```
-international_10_20_channels = ['Fp1', 'Fp2', 'F3', 'F4', 'C3', 'C4', 'P3', 'P4', 'O1', 'O2', 'F7', 'F8', 'T3', 'T4', 'T5','T6','Fz', 'Cz', 'Pz']
-ear_channels = ['PG1', 'PG2', 'A1', 'A2']
-heart_channels = ['EKG1', 'EKG2']
-muscle_channels = ['EMG1','EMG2', 'EMG3', 'EMG4']
-29_channels_sequence = ['Fp1', 'Fp2', 'F3', 'F4', 'C3', 'C4', 'P3', 'P4', 'O1', 'O2', 'F7', 'F8', 'T3', 'T4', 'T5','T6','Fz', 'Cz', 'Pz','PG1', 'PG2', 'A1', 'A2','EKG1', 'EKG2','EMG1','EMG2', 'EMG3', 'EMG4']
+international_10_20_electrodes = ['Fp1', 'Fp2', 'F3', 'F4', 'C3', 'C4', 'P3', 'P4', 'O1', 'O2', 'F7', 'F8', 'T3', 'T4', 'T5','T6','Fz', 'Cz', 'Pz']
+ear_electrodes = ['PG1', 'PG2', 'A1', 'A2']
+heart_electrodes = ['EKG1', 'EKG2']
+muscle_electrodes = ['EMG1','EMG2', 'EMG3', 'EMG4']
+29_electrodes_sequence = ['Fp1', 'Fp2', 'F3', 'F4', 'C3', 'C4', 'P3', 'P4', 'O1', 'O2', 'F7', 'F8', 'T3', 'T4', 'T5','T6','Fz', 'Cz', 'Pz','PG1', 'PG2', 'A1', 'A2','EKG1', 'EKG2','EMG1','EMG2', 'EMG3', 'EMG4']
 ```
 
 There are three types of discharge event identifiers in the comments of EDF:
