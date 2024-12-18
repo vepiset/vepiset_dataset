@@ -4,7 +4,7 @@ We are delighted to introduce our open-source dataset, the Epileptic Spike Datas
 
 
 
-We have released 84 MAT files, which include 29 electrodes: 19 electrodes are based on the 10-20 international standard, 4 are auricular electrodes, 2 are electrocardiogram electrodes, and 4 are electromyogram electrodes. Note: During data preprocessing, we subtract EKG2 from EKG1 to create one electrocardiogram channel, and we subtract EMG2 from EMG1 and EMG4 from EMG3 to create two electromyogram channels. These data processing steps can be found in the base_trainer/dataietr.py file.
+We have released 84 MAT files, which include 29 electrodes: 19 electrodes are based on the 10-20 international standard, 4 are auricular electrodes, 2 are electrocardiogram electrodes, and 4 are electromyogram electrodes. Note: During data preprocessing, we subtract EKG2 from EKG1 to create one electrocardiogram channel(EKG channel = EKG1-EKG2), and we subtract EMG2 from EMG1 and EMG4 from EMG3 to create two electromyogram channels(EMG channel(left deltoid) = EMG1-EMG2, EMG channel(right deltoid) = EMG3-EMG4). These data processing steps can be found in the base_trainer/dataietr.py file.
 
 ```
 international_10_20_electrodes = ['Fp1', 'Fp2', 'F3', 'F4', 'C3', 'C4', 'P3', 'P4', 'O1', 'O2', 'F7', 'F8', 'T3', 'T4', 'T5','T6','Fz', 'Cz', 'Pz']
