@@ -4,14 +4,14 @@ We are delighted to introduce our open-source dataset, the Epileptic Spike Datas
 
 
 
-We have released 84 MAT files, each including 29 electrodes: 19 standard 10-20 system electrodes, 4 auricular electrodes, 2 electrocardiogram (EKG) electrodes, and 4 electromyogram (EMG) electrodes. Note: EKG channel is derived by EKG2 and EKG1 electrodes (EKG = EKG1 - EKG2); EMG channel (left deltoid) is calculated from EMG2 and EMG1 (EMG(left) = EMG1 - EMG2), and EMG channel (right deltoid) is computed from EMG4 and EMG3 (EMG(right) = EMG3 - EMG4). These data processing steps can be found in the base_trainer/dataietr.py file.
+We have released 84 MAT files, each including 29 electrodes: 19 standard 10-20 system electrodes, 4 auricular electrodes, 2 electrocardiogram (ECG) electrodes (LA and RA, under the clavicles), and 4 electromyogram (EMG) electrodes. Note: ECG channel is derived by ECG2 and ECG1 electrodes (ECG = ECG1(LA) - ECG2(RA)); EMG channel (left deltoid) is calculated from EMG2 and EMG1 (EMG(left) = EMG1 - EMG2), and EMG channel (right deltoid) is computed from EMG4 and EMG3 (EMG(right) = EMG3 - EMG4). These data processing steps can be found in the base_trainer/dataietr.py file.
 
 ```
 international_10_20_electrodes = ['Fp1', 'Fp2', 'F3', 'F4', 'C3', 'C4', 'P3', 'P4', 'O1', 'O2', 'F7', 'F8', 'T3', 'T4', 'T5','T6','Fz', 'Cz', 'Pz']
 ear_electrodes = ['PG1', 'PG2', 'A1', 'A2']
-heart_electrodes = ['EKG1', 'EKG2']
+heart_electrodes = ['ECG1', 'ECG2']
 muscle_electrodes = ['EMG1','EMG2', 'EMG3', 'EMG4']
-29_electrodes_sequence = ['Fp1', 'Fp2', 'F3', 'F4', 'C3', 'C4', 'P3', 'P4', 'O1', 'O2', 'F7', 'F8', 'T3', 'T4', 'T5','T6','Fz', 'Cz', 'Pz','PG1', 'PG2', 'A1', 'A2','EKG1', 'EKG2','EMG1','EMG2', 'EMG3', 'EMG4']
+29_electrodes_sequence = ['Fp1', 'Fp2', 'F3', 'F4', 'C3', 'C4', 'P3', 'P4', 'O1', 'O2', 'F7', 'F8', 'T3', 'T4', 'T5','T6','Fz', 'Cz', 'Pz','PG1', 'PG2', 'A1', 'A2','ECG1', 'ECG2','EMG1','EMG2', 'EMG3', 'EMG4']
 ```
 
 There are three types of discharge event identifiers in the comments of EDF:
