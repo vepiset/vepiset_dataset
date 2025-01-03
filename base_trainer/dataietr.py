@@ -26,7 +26,7 @@ class AlaskaDataIter():
                          'T6',
                          'Fz', 'Cz', 'Pz',
                          'PG1', 'PG2', 'A1', 'A2',
-                         'EKG1', 'EKG2', 'EMG1',
+                         'ECG1', 'ECG2', 'EMG1',
                          'EMG2', 'EMG3', 'EMG4']
 
         self.leads_dict = {value: index for index, value in enumerate(self.leads_nm)}
