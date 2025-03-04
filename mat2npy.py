@@ -11,10 +11,9 @@ import scipy.io
 
 
 class MATReader():
-    def __init__(self, fn,choice_type='spike'):
+    def __init__(self, fn):
         self.fn = fn
         self.raw = scipy.io.loadmat(self.fn)
-        self.choice_type = choice_type
         self.start_and_end = self.get_start_and_end()
         self.slice_length_seconds = 4
         self.sample_rate = 500
@@ -30,13 +29,15 @@ class MATReader():
     def get_annotation(self,):
         final_ann = []
         annotations = self.raw['events']
+        ### 获取spike对应的事件标注
         for index in range(len(annotations)):
-            final_ann.append(
-                {
-                    'index': index,
-                    'tm':annotations[index][0],
-                    'text': annotations[index][-1]
-                })
+            if "!" in annotations[index][-1]: 
+                final_ann.append(
+                    {
+                        'index': index,
+                        'tm':annotations[index][0],
+                        'text': annotations[index][-1]
+                    })
         return final_ann
 
     def slidding(self,):
@@ -124,18 +125,8 @@ class MATReader():
 
 class MATCONVERTER():
     '''
-    EDF to numpy
+    MAT to numpy`
     '''
-    def __init__(self,choice_type='spike'):
-        self.choice_type = choice_type
-        self.fix_label = [
-            {'id':'DA00102R','start_point':276000,'end_point':278000,'label':0},
-            {'id':'DA00102R','start_point':352000,'end_point':354000,'label':0},
-            {'id':'DA00100V','start_point':384000,'end_point':386000,'label':0},
-            {'id':'DA00103E','start_point':430000,'end_point':432000,'label':0},
-            {'id':'DA00103Q','start_point':316000,'end_point':318000,'label':1},
-            {'id':'DA001031','start_point':110000,'end_point':112000,'label':0},
-        ] ## 边界情况，纠正
     def find_mat_files(self,folder_path):
         mat_files = []
         for root, dirs, files in os.walk(folder_path):
@@ -186,7 +177,7 @@ class MATCONVERTER():
     def process_one(self,mat_fn, save_dir):
         eeg_id = mat_fn.rsplit('/', 1)[1].rsplit('.', 1)[0]
         try:
-            mat_reader = MATReader(mat_fn, self.choice_type)
+            mat_reader = MATReader(mat_fn)
         except:
             traceback.print_exc()
             print(mat_fn)
@@ -213,11 +204,6 @@ class MATCONVERTER():
             waves = item['data']
             position = item['start_point']
 
-
-            for fix_label in self.fix_label:
-                if fix_label['id'] == str(eeg_id) and (fix_label['start_point'] == position):
-                    label = fix_label['label']
-
             waves = waves.astype(np.float32)
             c, l = waves.shape
             save_f = os.path.join(save_dir, '%s_%d_%d_%d__%d.npy' % (str(eeg_id), position, position + l, 500, label))
@@ -230,6 +216,7 @@ class MATCONVERTER():
         data_dir = mat_data_dir
         mat_files = self.find_mat_files(data_dir)
         self.check_and_mkdir(output_dir)
+        
         n_thread = 1
         process_unit = partial(self.wrapper_func, save_dir=output_dir)
 
@@ -250,9 +237,9 @@ def main():
     args = parser.parse_args()
     mat_files_path = args.mat_files_path
     numpy_files_path = args.numpy_files_path
-    matconverter = MATCONVERTER(choice_type='spike')
+    matconverter = MATCONVERTER()
     matconverter.get_data(mat_files_path,numpy_files_path)
-
+    
 
 if __name__ == '__main__':
     main()
