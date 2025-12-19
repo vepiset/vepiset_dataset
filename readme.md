@@ -1,8 +1,6 @@
-## Our open dataset
+## Our open dataset(vepiset)
 
 We are delighted to introduce our open-source dataset, the Epileptic Spike Dataset, sourced from the Epilepsy Center of Peking Union Medical College Hospital (PUMCH). These invaluable resources are now available for research purposes, aimed at enhancing knowledge and fostering innovation in the realm of electroencephalography.
-
-
 
 We have released 84 MAT files, each including 29 electrodes: 19 standard 10-20 system electrodes, 4 auricular electrodes, 2 electrocardiogram (ECG) electrodes (LA and RA, under the clavicles), and 4 electromyogram (EMG) electrodes. Note: ECG channel is derived by ECG2 and ECG1 electrodes (ECG = ECG1(LA) - ECG2(RA)); EMG channel (left deltoid) is calculated from EMG2 and EMG1 (EMG(left) = EMG1 - EMG2), and EMG channel (right deltoid) is computed from EMG4 and EMG3 (EMG(right) = EMG3 - EMG4). These data processing steps can be found in the base_trainer/dataietr.py file.
 
@@ -33,7 +31,7 @@ There are three types of discharge event identifiers in the comments of EDF:
 
 ## Download MAT-Dataset
 
-If you want to download the dataset, you can download data based on this link (coming soon)
+If you want to download the dataset, you can download data based on this [link](https://doi.org/10.6084/m9.figshare.28069568.v2)
 
 ## Create a virtual environment with conda
 
@@ -46,12 +44,13 @@ pip install -r requirements.txt
 ## Prepare dataset
 
 1. MAT To Numpy Files
-
+   
    ```
    python mat2npy.py --mat_files_path source_mat_data_path --numpy_files_path mat_to_npy_dir_path 
    ```
-2. Generate CSV Files Based On The Numpy Files Path
 
+2. Generate CSV Files Based On The Numpy Files Path
+   
    ```
    python numpy2csv.py --numpy_files_path mat_to_npy_dir_path  --save_csv_file csv_file_path
    ```
@@ -71,7 +70,6 @@ pip install -r requirements.txt
 
 ## Spike Data Set：
 
-
 | Category   | IED    | non-IED |
 | ---------- | ------ | ------- |
 | Quantity   | 2516   | 22933   |
@@ -79,8 +77,21 @@ pip install -r requirements.txt
 
 ## 5 Cross Valid Result on Spike Data Set
 
-
 |         | non-IED | IED  | PR    | RE    | F1    |
 | ------- | ------- | ---- | ----- | ----- | ----- |
 | non-IED | 22549   | 384  | 0.976 | 0.983 | 0.980 |
 | IED     | 552     | 1964 | 0.836 | 0.781 | 0.808 |
+
+## Citation
+```
+@article{lin2025eeg,
+  title={An EEG dataset for interictal epileptiform discharge with spatial distribution information},
+  author={Lin, Nan and Zheng, Mengxuan and Li, Lian and Hu, Peng and Gao, Weifang and Sun, Heyang and Xu, Chang and Yuan, Gonglin and Liang, Zi and Dong, Yisu and others},
+  journal={Scientific Data},
+  volume={12},
+  number={1},
+  pages={229},
+  year={2025},
+  publisher={Nature Publishing Group UK London}
+}
+```
